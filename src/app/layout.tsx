@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Gestión de Eventos",
+  title: "CUPON ME",
   description: "Capstone: Sistema de gestión y registro de eventos con Next.js + .NET + SQL Server",
 };
 

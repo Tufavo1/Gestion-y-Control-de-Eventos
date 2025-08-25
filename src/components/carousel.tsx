@@ -8,7 +8,7 @@ export function Carousel({ slides, autoMs = 5000 }: { slides: Slide[]; autoMs?: 
     const { index, goPrev, goNext, goTo, pause, resume } = useCarousel(slides.length, autoMs);
 
     return (
-        <section className="mx-auto max-w-6xl px-4" onMouseEnter={pause} onMouseLeave={resume} onFocus={pause} onBlur={resume}>
+        <section className="mx-auto max-w-7xl px-2" onMouseEnter={pause} onMouseLeave={resume} onFocus={pause} onBlur={resume}>
             <div
                 className="relative overflow-hidden rounded-xl ring-1 ring-blue-200"
                 role="region" aria-roledescription="Carrusel" aria-label="Destacados"
