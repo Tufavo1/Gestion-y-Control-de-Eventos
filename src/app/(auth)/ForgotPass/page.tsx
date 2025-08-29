@@ -2,7 +2,7 @@
 
 import Footer from "@/components/Layout/footer";
 import { Navbar } from "@/components/Layout/navbar";
-import LoginForm from "@/components/Login/LoginForm";
+import ForgotPasswordForm from "@/components/Login/ForgotPassForm";
 
 
 export default function LoginPage() {
@@ -12,7 +12,7 @@ export default function LoginPage() {
             <Navbar />
 
             <section className="flex-1 grid place-items-center bg-gray-50 px-4 py-9">
-                <LoginForm />
+                <ForgotPasswordForm />
             </section>
 
             <Footer />

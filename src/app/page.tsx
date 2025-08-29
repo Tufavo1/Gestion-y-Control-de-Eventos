@@ -1,9 +1,10 @@
-// src/app/page.tsx
-
-import { Navbar } from "@/components/navbar";
-import { Hero } from "@/components/hero";
-import { Carousel } from "@/components/carousel";
-import { EventosSection, Card } from "@/components/eventsection";
+import { Navbar } from "@/components/Layout/navbar";
+import { Hero } from "@/components/Home/hero";
+import { Carousel } from "@/components/UI/carousel";
+import { Card } from "@/components/Home/eventsection";
+import ContactForm from "@/components/Home/contactform";
+import Footer from "@/components/Layout/footer";
+import EventosCards from "@/components/Home/eventcard";
 
 // pagina principal
 export default function Page() {
@@ -34,9 +35,11 @@ export default function Page() {
       region: "Región Metropolitana de Santiago",
       comuna: "Providencia",
       start: "2025-11-15",
-      end: "2025-11-15",
+      end: "2025-12-15",
       price: 7000,
       img: "/img/cards/1.jpg",
+      tipo: "fiesta",
+      desc: "Ven y disfruta de este Hard Techno",
     },
     {
       id: 2,
@@ -48,6 +51,7 @@ export default function Page() {
       end: "2025-10-05",
       price: "Entrada liberada",
       img: "/img/cards/2.jpg",
+      tipo: "deporte",
     },
     {
       id: 3,
@@ -59,6 +63,7 @@ export default function Page() {
       end: "2025-09-20",
       price: 15000,
       img: "/img/cards/3.jpg",
+      tipo: "concierto",
     },
     {
       id: 4,
@@ -70,6 +75,7 @@ export default function Page() {
       end: "2025-11-07",
       price: 5000,
       img: "/img/cards/4.jpg",
+      tipo: "deporte",
     },
     {
       id: 5,
@@ -81,6 +87,7 @@ export default function Page() {
       end: "2025-09-01",
       price: "Solo Invitados",
       img: "/img/cards/5.jpg",
+      tipo: "otro",
     },
     {
       id: 6,
@@ -92,25 +99,43 @@ export default function Page() {
       end: "2025-10-19",
       price: 10000,
       img: "/img/cards/6.jpg",
+      tipo: "deporte",
+    },
+    {
+      id: 7,
+      title: "Feria Costumbrista",
+      org: "Municipalidad de Nunoa",
+      region: "Región Metropolitana de Santiago",
+      comuna: "Nunoa",
+      start: "2025-10-19",
+      end: "2025-10-19",
+      price: 10000,
+      img: "/img/cards/7.jpg",
+      tipo: "feria",
+    },
+    {
+      id: 8,
+      title: "Frozen Live Action",
+      org: "Disney",
+      region: "Región Metropolitana de Santiago",
+      comuna: "Vitacura",
+      start: "2025-10-19",
+      end: "2025-10-19",
+      price: 15000,
+      img: "/img/cards/8.jpg",
+      tipo: "teatro",
     },
   ];
 
   return (
     <main className="min-h-screen bg-white text-gray-900">
+      {/* llamo a los componentes */}
       <Navbar />
       <Hero />
       <Carousel slides={slides} />
-
-      {/* llamamos a los componentes */}
-      <EventosSection baseCards={baseCards} />
-
-      <footer id="contacto" className="border-t border-gray-200 bg-gray-50">
-        <div className="mx-auto max-w-7xl px-4 py-10">
-          <div className="mt-8 border-t border-gray-200 pt-6 text-center text-sm text-black-600">
-            &copy; {new Date().getFullYear()} Dinovance. Todos los derechos reservados.
-          </div>
-        </div>
-      </footer>
+      <EventosCards cards={baseCards} />
+      <ContactForm />
+      <Footer />
     </main>
   );
 }
