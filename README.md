@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## CuponME
+**CuponMe** es un sistema de gestion de eventos y socios que permite a organizadores y usuarios:
+- Crear y administrar eventos.
+- Asignar lugares y controlar cupos disponibles.
+- Registrar participantes o permitir que compren cupones de asiento.
+- Gestionar perfiles de usuarios y socios.
+- Garantizar consistencia de datos con concurrencia en SQL Server.
 
-## Getting Started
+Stack: Next.js 15 + TailwindCSS (Front) | ASP.NET Core 8 Web API + EF Core (Back) | SQL Server (DB).
 
-First, run the development server:
+## Como Ejecutarlo Localmente
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Estado del proyecto
+- **Version:** V.0.1.0
+- **Ambientes:** DEV | QA | Prod
+- **Ramas Git:**
+    - Main: Produccion.
+    - Develop: Desarrollo.
+    - Feature: Funcionalidades nuevas.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Arquitectura
+- **Front-End:** Next.js (SSR/SPA) con TailwindCSS.
+- **Back-End:** ASP.NET Core 8 Web API con autenticacion JWT + Roles (user, member, admin, superadmin).
+- **ORM:** EF Core para migraciones y acceso de datos.
+- **DB:** SQL Server (con transacciones y stored procedures).
+- **Seguridad:** Cifrado de contrasenas, JWT, Control de concurrencias con **rowversion**.
+- **QA:** Pruebas unitarias, automatizadas, matriz de riesgos.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Flujo principal (registro a un evento sin sobreventa):
+1.- El usuario inicia sesion -> API genera JWT.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2.- El front almacena JWT y lo envia en headers **(authorization: bearer <token>)**.
 
-## Learn More
+3.- Al registrarse en un evento, la API abre la transaccion **SERIALIZABLE**, aplica lock **(UPDLOCK, HOLDLOCK)** y valida los cupos.
 
-To learn more about Next.js, take a look at the following resources:
+4.- Inserta **CONFIRMED** o **WAITLISTED** segun la disponibilidad.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5.- Se garantiza la consistencia y no sobreventa.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Diagrama de flujo (Simple):
 
-## Deploy on Vercel
+USER -> Front-End (Next.js) -> API.NET -> EF CORE -> SQL SERVER
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Roles y Planes
+- **Roles Validos:** user(default), member. admin, superadmin.
+
+- **Planes Validos:** free(default), basic, premium, gold.
+
+## API Reference
+**Base URL(Dev):** http://localhost:5009
+**CORS Dev:** http://localhost:3000
+
+Swagger habilitado en Development.
+
+### Auth
+- Post /api/auth/register -> Crea el usuario
+- POST /api/auth/login -> login(dev retorna token placeholder)
+
+### Admin (admin/superadmin)
+- GET /api/admin/users -> Listar usuarios
+- PUT /api/admin/users/{id}/role -> cambiar rol
+- PUT /api/admin/users/{id}/plan -> Cambiar plan
+- DELETE /api/admin/users/{id} -> eliminar usuario
+
+### Profile
+- GET /api/users/me -> Perfil autenticado
+- PUT /api/users/me -> Actualizar perfil
+- PUT /api/users/me/password -> Cambiar Contrasena
+- DELETE /api/users/me -> eliminar cuenta
+
+### Proximo es Billing
+- POST /api/billing/select-plan -> asignar el plan
+- POST /api/billing/create-checkout -> checkout simulado
+
+### Modelos principales
+- **User:** Email, PasswordHash, Role, Plan, Datos Personales.
+- **Venue:** Nombre, Direccion, Capacidad.
+- **Event:** Titulo, Fecha, Capacidad, ConfirmedCount.
+- **Registration:** EventID, UserID, Status **(CONFIRMED/WAITLISTED/CANCELLED)**
+
+## Proximo Concurrencia
