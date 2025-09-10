@@ -106,7 +106,7 @@ export default function Footer() {
                                     <path d="M21.4893 35.5227V19.769L36.0311 30.6754L50.5729 19.769V35.5227L36.0311 46.429" fill="#EA4335" />
                                     <path d="M9.37109 21.587V26.4343L21.4893 35.5229V19.7693L18.0962 17.2245C14.4971 14.5282 9.37109 17.0912 9.37109 21.587Z" fill="#C5221F" />
                                 </svg>
-                                <span className="select-all">contacto@dinovance.com</span>
+                                <span className="select-all">dinovancejr1098@gmail.com</span>
                             </li>
                         </ul>
 

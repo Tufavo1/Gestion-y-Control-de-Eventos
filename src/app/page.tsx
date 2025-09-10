@@ -5,6 +5,8 @@ import { Card } from "@/components/Home/eventsection";
 import ContactForm from "@/components/Home/contactform";
 import Footer from "@/components/Layout/footer";
 import EventosCards from "@/components/Home/eventcard";
+import PlanesSection from "@/components/princing/plansections";
+import RotatingCommunity, { EventLite, EventMedia } from "@/components/community/globalcommunity";
 
 // pagina principal
 export default function Page() {
@@ -127,6 +129,36 @@ export default function Page() {
     },
   ];
 
+  // Eventos
+  const eventos: EventLite[] = [
+    { id: 1, title: "Hard Techno" },
+    { id: 2, title: "Trekking San Ramon" },
+  ];
+
+  // contenido por eventId
+  const mediaByEvent: Record<string | number, EventMedia> = {
+    1: {
+      photos: [
+        { id: "1-a", src: "/img/eventos/1.jpg", caption: "Hard Techno - Apertura" },
+        { id: "1-b", src: "/img/eventos/2.jpg", caption: "Main stage" },
+      ],
+      testimonials: [
+        { id: "1-t1", name: "Vale P.", rating: 5, location: "Providencia, CL", text: "La vibra estuvo increíble 🔥" },
+        { id: "1-t2", name: "JP A.", rating: 4, location: "Ñuñoa, CL", text: "Buen sonido y organización." },
+      ],
+    },
+    2: {
+      photos: [
+        { id: "2-a", src: "/img/eventos/3.jpg", caption: "Trekking San Ramon" },
+        { id: "2-b", src: "/img/eventos/4.webp", caption: "Caminata" },
+      ],
+      testimonials: [
+        { id: "2-t1", name: "Vale P.", rating: 5, location: "Providencia, CL", text: "La vibra estuvo increíble 🔥" },
+        { id: "2-t2", name: "JP A.", rating: 4, location: "Ñuñoa, CL", text: "Buen sonido y organización." },
+      ],
+    },
+  };
+
   return (
     <main className="min-h-screen bg-white text-gray-900">
       {/* llamo a los componentes */}
@@ -134,7 +166,9 @@ export default function Page() {
       <Hero />
       <Carousel slides={slides} />
       <EventosCards cards={baseCards} />
+      <PlanesSection />
       <ContactForm />
+      <RotatingCommunity eventos={eventos} mediaByEvent={mediaByEvent} initialEventId={1} rotateSeconds={15} />
       <Footer />
     </main>
   );

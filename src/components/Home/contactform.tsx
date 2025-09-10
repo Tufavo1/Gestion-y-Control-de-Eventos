@@ -88,22 +88,28 @@ export default function ContactForm({
     };
 
     return (
-        <section className="bg-gray-100 py-12">
+        <section className="bg-white py-16">
             <div className="mx-auto max-w-7xl px-4">
-                {/* titulo*/}
-                <div className="mb-8 text-center">
-                    <h2 className="text-2xl font-bold text-black">¿Quieres más información?</h2>
-                    <p className="mt-2 text-gray-600">
+                {/* Título */}
+                <div className="mb-12 text-center">
+                    <h2 className="text-3xl font-extrabold text-gray-900">
+                        ¿Quieres más información?
+                    </h2>
+                    <p className="mt-3 text-lg text-gray-600">
                         Completa el formulario y nos pondremos en contacto contigo.
                     </p>
                 </div>
 
                 {/* GRID 2 */}
-                <div className="grid gap-6 lg:grid-cols-2">
-                    {/* Columna izquierda efecto espejo */}
-                    <form onSubmit={onSubmit} className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm" aria-busy={status === "sending"}>
-                        {/* titulo del formulario */}
-                        <div className="mb-4">
+                <div className="grid gap-8 lg:grid-cols-2">
+                    {/* Columna izquierda: formulario */}
+                    <form
+                        onSubmit={onSubmit}
+                        className="rounded-2xl border border-gray-200 bg-white p-8 shadow-lg"
+                        aria-busy={status === "sending"}
+                    >
+                        {/* título del formulario */}
+                        <div className="mb-6">
                             <h3 className="text-xl font-semibold text-gray-900">Contacto</h3>
                             {eventTitle && (
                                 <p className="mt-1 text-sm text-gray-600">
@@ -113,26 +119,46 @@ export default function ContactForm({
                             )}
                         </div>
 
-                        <div className="grid gap-4 sm:grid-cols-2">
+                        <div className="grid gap-5 sm:grid-cols-2">
                             <div className="sm:col-span-1">
                                 <label className="mb-1 block text-sm font-medium text-gray-700">
                                     Nombre
                                 </label>
-                                <input name="name" value={form.name} onChange={onChange} placeholder="Tu nombre" className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-500" required />
+                                <input
+                                    name="name"
+                                    value={form.name}
+                                    onChange={onChange}
+                                    placeholder="Tu nombre"
+                                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500"
+                                    required
+                                />
                             </div>
 
                             <div className="sm:col-span-1">
                                 <label className="mb-1 block text-sm font-medium text-gray-700">
                                     Correo
                                 </label>
-                                <input name="email" type="email" value={form.email} onChange={onChange} placeholder="tucorreo@ejemplo.com" className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-500" required />
+                                <input
+                                    name="email"
+                                    type="email"
+                                    value={form.email}
+                                    onChange={onChange}
+                                    placeholder="tucorreo@ejemplo.com"
+                                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500"
+                                    required
+                                />
                             </div>
 
                             <div className="sm:col-span-2">
                                 <label className="mb-1 block text-sm font-medium text-gray-700">
                                     Asunto
                                 </label>
-                                <select name="subject" value={form.subject} onChange={onChange} className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-500">
+                                <select
+                                    name="subject"
+                                    value={form.subject}
+                                    onChange={onChange}
+                                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500"
+                                >
                                     <option value="">Selecciona un asunto</option>
                                     <option value="Consulta general">Consulta general</option>
                                     <option value="Entradas y precios">Entradas y precios</option>
@@ -146,7 +172,15 @@ export default function ContactForm({
                                 <label className="mb-1 block text-sm font-medium text-gray-700">
                                     Mensaje
                                 </label>
-                                <textarea name="message" value={form.message} onChange={onChange} placeholder="Cuéntanos en qué podemos ayudarte…" rows={5} className="w-full resize-y rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-500" required />
+                                <textarea
+                                    name="message"
+                                    value={form.message}
+                                    onChange={onChange}
+                                    placeholder="Cuéntanos en qué podemos ayudarte…"
+                                    rows={5}
+                                    className="w-full resize-y rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500"
+                                    required
+                                />
                             </div>
                         </div>
 
@@ -158,12 +192,16 @@ export default function ContactForm({
                         )}
                         {status === "ok" && (
                             <p className="mt-3 text-sm text-green-600">
-                                ¡Funciona bien, pasemos al backend.
+                                ¡Funciona bien, pasemos al backend!
                             </p>
                         )}
 
-                        <div className="mt-5 flex items-center gap-3">
-                            <button type="submit" disabled={status === "sending"} className="inline-flex items-center justify-center rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-orange-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 disabled:opacity-60">
+                        <div className="mt-6 flex items-center gap-3">
+                            <button
+                                type="submit"
+                                disabled={status === "sending"}
+                                className="inline-flex items-center justify-center rounded-xl bg-orange-500 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 disabled:opacity-60"
+                            >
                                 {status === "sending" ? "Enviando…" : "Enviar"}
                             </button>
                             <p className="text-xs text-gray-500">
@@ -173,8 +211,7 @@ export default function ContactForm({
                     </form>
 
                     {/* Columna derecha */}
-                    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                        {/* formulario derecho efecto espejo */}
+                    <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-lg">
                         <div className="mb-6">
                             <h3 className="text-xl font-semibold text-gray-900">
                                 Reconocimiento & Confianza
@@ -184,11 +221,16 @@ export default function ContactForm({
                             </p>
                         </div>
 
-                        {/* Metricas de satisfaccion */}
-                        <div className="flex items-center gap-4 rounded-xl border border-gray-100 bg-gray-50/70 p-4">
+                        {/* Métricas de satisfacción */}
+                        <div className="flex items-center gap-4 rounded-xl border border-gray-100 bg-gray-50 p-4">
                             <div className="flex items-center">
                                 {[...Array(satisfaction.stars ?? 5)].map((_, i) => (
-                                    <svg key={i} className="h-5 w-5 text-orange-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <svg
+                                        key={i}
+                                        className="h-5 w-5 text-orange-500"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                    >
                                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.88 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 0 0 .95-.69l1.07-3.292Z" />
                                     </svg>
                                 ))}
@@ -206,14 +248,16 @@ export default function ContactForm({
                             </div>
                         </div>
 
-                        {/* metricas */}
+                        {/* Métricas */}
                         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
                             {stats.map((s) => (
                                 <div
                                     key={s.label}
                                     className="rounded-xl border border-gray-100 bg-white p-4 text-center shadow-sm"
                                 >
-                                    <div className="text-2xl font-bold text-gray-900">{s.value}</div>
+                                    <div className="text-2xl font-bold text-gray-900">
+                                        {s.value}
+                                    </div>
                                     <div className="text-xs font-medium text-gray-600">{s.label}</div>
                                     {s.helper && (
                                         <div className="mt-1 text-[11px] text-gray-500">{s.helper}</div>
@@ -222,8 +266,8 @@ export default function ContactForm({
                             ))}
                         </div>
 
-                        {/* Barra progreso de objetivos */}
-                        <div className="mt-6 rounded-xl border border-gray-100 bg-gray-50/70 p-4">
+                        {/* Barra de progreso */}
+                        <div className="mt-6 rounded-xl border border-gray-100 bg-gray-50 p-4">
                             <div className="flex items-center justify-between">
                                 <span className="text-sm font-semibold text-gray-900">
                                     Objetivo mensual de eventos
@@ -241,19 +285,27 @@ export default function ContactForm({
                         {/* Badges */}
                         <div className="mt-6 flex flex-wrap gap-2">
                             {badges.map((b) => (
-                                <span key={b.label} className="rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-800 shadow-sm">
+                                <span
+                                    key={b.label}
+                                    className="rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-800 shadow-sm"
+                                >
                                     {b.label}
                                 </span>
                             ))}
                         </div>
 
-                        {/* CTA efecto espejo */}
+                        {/* CTA */}
                         <div className="mt-6">
-                            <button type="button" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm transition-all hover:border-gray-300" onClick={() => {
-                                // Esto desplaza el formulario lo centra
-                                const formEl = document.querySelector<HTMLFormElement>("form[aria-busy]");
-                                formEl?.scrollIntoView({ behavior: "smooth", block: "start" });
-                            }}>
+                            <button
+                                type="button"
+                                className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm transition hover:border-gray-300"
+                                onClick={() => {
+                                    const formEl = document.querySelector<HTMLFormElement>(
+                                        "form[aria-busy]"
+                                    );
+                                    formEl?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                }}
+                            >
                                 Ir al formulario
                             </button>
                         </div>
@@ -261,5 +313,6 @@ export default function ContactForm({
                 </div>
             </div>
         </section>
+
     );
 }

@@ -1,4 +1,3 @@
-// app/events/page.tsx
 "use client";
 
 import { Card, EventosSection } from "@/components/Home/eventsection";
