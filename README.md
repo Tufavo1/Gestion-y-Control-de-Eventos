@@ -1,82 +1,86 @@
-## CuponME
-**CuponMe** es un sistema de gestion de eventos y socios que permite a organizadores y usuarios:
-- Crear y administrar eventos.
-- Asignar lugares y controlar cupos disponibles.
-- Registrar participantes o permitir que compren cupones de asiento.
-- Gestionar perfiles de usuarios y socios.
-- Garantizar consistencia de datos con concurrencia en SQL Server.
+## Proyecto APT – Gestión y Control de Eventos
+Este repositorio contiene toda la documentación, entregables y planificación del Proyecto APT (Aplicación Profesional de Titulación) desarrollado en Duoc UC.
+El proyecto se trabajó siguiendo una metodología ágil basada en Sprints, organizados en 3 fases principales:
+- **Fase 1:** Levantamiento de requisitos y definición del proyecto.
+- **Fase 2:** Desarrollo, documentación y presentación de avance.
+- **Fase 3:** Entrega final, presentación y cierre.
 
-Stack: Next.js 15 + TailwindCSS (Front) | ASP.NET Core 8 Web API + EF Core (Back) | SQL Server (DB).
+### Estructura de Entregables
+**Fase 1 – Inicio y definición**
 
-## Como Ejecutarlo Localmente
+*Evidencias Individuales*
+- Apellido_Nombre_1.1_APT122_AutoevaluacionCompetenciasFase1.docx
 
-## Estado del proyecto
-- **Version:** V.0.1.0
-- **Ambientes:** DEV | QA | Prod
-- **Ramas Git:**
-    - Main: Produccion.
-    - Develop: Desarrollo.
-    - Feature: Funcionalidades nuevas.
+- Apellido_Nombre_1.2_APT122_DiarioReflexionFase1.docx
 
-## Arquitectura
-- **Front-End:** Next.js (SSR/SPA) con TailwindCSS.
-- **Back-End:** ASP.NET Core 8 Web API con autenticacion JWT + Roles (user, member, admin, superadmin).
-- **ORM:** EF Core para migraciones y acceso de datos.
-- **DB:** SQL Server (con transacciones y stored procedures).
-- **Seguridad:** Cifrado de contrasenas, JWT, Control de concurrencias con **rowversion**.
-- **QA:** Pruebas unitarias, automatizadas, matriz de riesgos.
+- Apellido_Nombre_1.3_APT122_AutoevaluacionFase1.docx
 
-# Flujo principal (registro a un evento sin sobreventa):
-1.- El usuario inicia sesion -> API genera JWT.
+*Evidencias Grupales*
+- Presentación Proyecto.pptx
 
-2.- El front almacena JWT y lo envia en headers **(authorization: bearer <token>)**.
+- 1.4_APT122_FormativaFase1.docx
 
-3.- Al registrarse en un evento, la API abre la transaccion **SERIALIZABLE**, aplica lock **(UPDLOCK, HOLDLOCK)** y valida los cupos.
+- 1.5_GuiaEstudiante_Fase1_DefinicionProyectoAPT(Español).docx
 
-4.- Inserta **CONFIRMED** o **WAITLISTED** segun la disponibilidad.
+- 1.5_GuiaEstudiante_Fase1_DefinicionProyectoAPT(Inglés).docx (Optativo)
 
-5.- Se garantiza la consistencia y no sobreventa.
+- PLANILLA DE EVALUACION FASE 1.xlsx (Enviada por correo)
 
-## Diagrama de flujo (Simple):
+**Fase 2 – Desarrollo y documentación**
 
-USER -> Front-End (Next.js) -> API.NET -> EF CORE -> SQL SERVER
+*Evidencias Individuales*
+
+- Apellido_Nombre_2.1_APT122_DiarioReflexionFase2.docx
+
+*Evidencias Grupales*
+
+- 2.4_GuiaEstudiante_Fase2_DesarrolloProyectoAPT(Español).docx
+
+- 2.4_GuiaEstudiante_Fase2_DesarrolloProyectoAPT(Inglés).docx (Optativo)
+
+- PLANILLA DE EVALUACION AVANCE FASE 2.xlsx
+
+- 2.6_GuiaEstudiante_Fase2_InformeFinalProyectoAPT(Español).docx
+
+- 2.6_GuiaEstudiante_Fase2_InformeFinalProyectoAPT(Inglés).docx (Optativo)
+
+- PLANILLA DE EVALUACION FINAL FASE 2.xlsx
+
+*Evidencias de Proyecto*
+
+- Evidencias de documentación
+
+- Evidencias del sistema (Aplicación + Base de datos)
+
+- Presentación Proyecto.pptx
+
+**Fase 3 – Cierre y entrega final**
+
+*Evidencias Individuales*
+
+- Apellido_Nombre_3.1_APT122_DiarioReflexionFase3.docx
+
+*Evidencias Grupales*
+
+- PLANILLA DE EVALUACION FASE 3.xlsx
+
+- Presentación Final del proyecto (Español).pptx
+
+- Presentación Final del proyecto (Inglés).pptx (Optativo)
 
 
-## Roles y Planes
-- **Roles Validos:** user(default), member. admin, superadmin.
+### Cronograma (Carta Gantt)
 
-- **Planes Validos:** free(default), basic, premium, gold.
+El proyecto se organizó en actividades semanales según la planificación adjunta en Carta_Gantt_Completa.xlsx.
 
-## API Reference
-**Base URL(Dev):** http://localhost:5009
-**CORS Dev:** http://localhost:3000
+<img width="1776" height="813" alt="image" src="https://github.com/user-attachments/assets/6bc0a0f4-0700-4026-ac00-1b50af973f39" />
 
-Swagger habilitado en Development.
+## Metodología
 
-### Auth
-- Post /api/auth/register -> Crea el usuario
-- POST /api/auth/login -> login(dev retorna token placeholder)
+Se aplicó un enfoque Ágil (Scrum/Kanban adaptado) para:
 
-### Admin (admin/superadmin)
-- GET /api/admin/users -> Listar usuarios
-- PUT /api/admin/users/{id}/role -> cambiar rol
-- PUT /api/admin/users/{id}/plan -> Cambiar plan
-- DELETE /api/admin/users/{id} -> eliminar usuario
+- Dividir el trabajo en Sprints de 2 semanas.
 
-### Profile
-- GET /api/users/me -> Perfil autenticado
-- PUT /api/users/me -> Actualizar perfil
-- PUT /api/users/me/password -> Cambiar Contrasena
-- DELETE /api/users/me -> eliminar cuenta
+- Reuniones de avance con el equipo y el docente guía.
 
-### Proximo es Billing
-- POST /api/billing/select-plan -> asignar el plan
-- POST /api/billing/create-checkout -> checkout simulado
-
-### Modelos principales
-- **User:** Email, PasswordHash, Role, Plan, Datos Personales.
-- **Venue:** Nombre, Direccion, Capacidad.
-- **Event:** Titulo, Fecha, Capacidad, ConfirmedCount.
-- **Registration:** EventID, UserID, Status **(CONFIRMED/WAITLISTED/CANCELLED)**
-
-## Proximo Concurrencia
+- Entregables incrementales (documentación + software funcional).
